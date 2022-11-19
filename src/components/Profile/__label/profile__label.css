@@ -1,0 +1,16 @@
+.profile__label {
+    display: flex;
+    justify-content: space-between;
+    gap: 225px;
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.profile__label:last-of-type {
+    border: none;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__label {
+        gap: 76px;
+    }
+}

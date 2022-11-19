@@ -1,0 +1,21 @@
+.moviescard__text {
+    margin: 16px auto 17px 16px;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    color: #A0A0A0;
+}
+
+@media screen and (max-width: 1023px) {
+    .moviescard__text {
+        margin: 14px auto 15px 14px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .moviescard__text {
+        margin: 14px auto 14px 14px;
+        font-size: 10px;
+        line-height: 12px;
+    }
+}

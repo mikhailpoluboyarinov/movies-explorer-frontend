@@ -1,0 +1,18 @@
+.techs__title {
+    border-bottom: 1px solid #000;
+    box-sizing: border-box;
+    height: 50px;
+    margin: 0;
+    color: #000;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -.04em;
+    line-height: 27px;
+}
+
+@media screen and (max-width: 767px) {
+    .techs__title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+}

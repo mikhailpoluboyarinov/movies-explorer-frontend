@@ -1,0 +1,22 @@
+.intro__background {
+    box-sizing: border-box;
+    height: 493px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+}
+
+@media screen and (max-width: 1023px) {
+    .intro__background {
+        height: 834px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .intro__background {
+        height: 586px;
+    }
+}

@@ -1,0 +1,20 @@
+.search-form__checkbox-wrap {
+    display: flex;
+    border-left: 1px solid #CBCBCB;
+    margin: 9px 1px 0 29px;
+}
+
+@media screen and (max-width: 1023px) {
+    .search-form__checkbox-wrap {
+        margin: 12px 2px 0 31px;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .search-form__checkbox-wrap {
+        border: 0;
+        margin: 4px 15px -1px -10px;
+        padding: 0;
+    }
+}

@@ -1,0 +1,14 @@
+.about-project__features {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 70px 0 0 0;
+}
+
+@media screen and (max-width: 767px) {
+    .about-project__features {
+        flex-direction: column;
+        padding: 60px 0 0 0;
+    }
+}

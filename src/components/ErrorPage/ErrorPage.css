@@ -1,0 +1,16 @@
+.error-page {
+    text-align: center;
+    padding-top: 246px;
+}
+
+@media screen and (max-width: 1023px) {
+    .error-page {
+        padding-top: 408px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .error-page {
+        padding-top: 329px;
+    }
+}

@@ -1,0 +1,16 @@
+.portfolio__item {
+    height: 70px;
+    border-bottom: 1px solid #E8E8E8;
+    margin-bottom: 20px;
+}
+
+.portfolio__item:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .portfolio__item {
+        height: 48px;
+    }
+}

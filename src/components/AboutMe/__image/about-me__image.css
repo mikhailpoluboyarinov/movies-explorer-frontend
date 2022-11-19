@@ -1,0 +1,14 @@
+.about-me__image {
+    border-style: none;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .about-me__image {
+        margin: 0 auto;
+        grid-row-end: 2;
+        max-width: 292px;
+    }
+}

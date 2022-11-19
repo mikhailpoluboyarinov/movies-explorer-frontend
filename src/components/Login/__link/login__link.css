@@ -1,0 +1,17 @@
+.login__link {
+    display: block;
+    cursor: pointer;
+    height: 38px;
+    width: 38px;
+}
+
+.login__link:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 767px) {
+    .login__link {
+        margin: 0 auto;
+        text-align: center;
+    }
+}

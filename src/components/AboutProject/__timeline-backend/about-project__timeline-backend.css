@@ -1,0 +1,19 @@
+.about-project__timeline-backend {
+    background-color: #2BE080;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000;
+}
+
+@media screen and (max-width: 767px) {
+    .about-project__timeline-backend {
+        height: 35px;
+        font-size: 11px;
+        line-height: 13px;
+    }
+}

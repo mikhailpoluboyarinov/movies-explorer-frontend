@@ -1,0 +1,19 @@
+.about-me__info-container {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-between;*/
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 1023px) {
+    .about-me__info-container {
+        max-width: 364px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .about-me__info-container {
+        max-width: 292px;
+    }
+}

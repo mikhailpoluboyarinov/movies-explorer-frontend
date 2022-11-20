@@ -1,0 +1,6 @@
+.header__links-touch {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}

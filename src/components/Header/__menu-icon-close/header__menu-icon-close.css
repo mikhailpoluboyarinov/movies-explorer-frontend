@@ -1,0 +1,11 @@
+.header__menu-icon-close {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    top: 20px;
+    right: 20px;
+    background-image: url(../../../images/icon-close.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}

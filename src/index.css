@@ -111,3 +111,15 @@
 @import url(components/MoviesCard/__title/moviescard__title.css);
 @import url(components/MoviesCard/__text/moviescard__text.css);
 @import url(components/MoviesCard/__button/moviescard__button.css);
+@import url(components/Header/__menu/header__menu.css);
+@import url(components/Header/__menu-icon/header__menu-icon.css);
+@import url(components/Header/__menu-layout/header__menu-layout.css);
+@import url(components/Header/__container/header__container.css);
+@import url(components/Header/__menu-icon-close/header__menu-icon-close.css);
+@import url(components/Header/__menu-layout-visible/header__menu-layout-visible.css);
+@import url(components/Header/__menu-layout-bg/header__menu-layout-bg.css);
+@import url(components/Header/__links-touch/header__links-touch.css);
+@import url(components/Header/__links-touch-top/header__links-touch-top.css);
+@import url(components/Header/__link-touch/header__link-touch.css);
+@import url(components/Header/__link-touch-text/header__link-touch-text.css);
+@import url(components/Header/__links-main/header__links-main.css);

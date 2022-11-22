@@ -1,7 +1,6 @@
 .search-form__input {
     height: 43px;
     width: 100%;
-    border: 0;
     padding: 0 0 0 63px;
     margin: 0;
     background: url(../../../images/icon-find.svg) no-repeat scroll 24px 5px;
@@ -10,6 +9,12 @@
     line-height: 20px;
     color: #A0A0A0;
     outline: none;
+    border: 0;
+}
+
+.search-form__input:focus {
+    background: url(../../../images/icon-find_active.svg) no-repeat scroll 24px 5px;
+
 }
 
 @media screen and (max-width: 767px) {

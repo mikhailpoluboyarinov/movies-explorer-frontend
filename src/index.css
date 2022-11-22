@@ -110,7 +110,9 @@
 @import url(components/MoviesCard/__info/moviescard__info.css);
 @import url(components/MoviesCard/__title/moviescard__title.css);
 @import url(components/MoviesCard/__text/moviescard__text.css);
-@import url(components/MoviesCard/__button/moviescard__button.css);
+@import url(components/MoviesCard/__button-like/moviescard__button-like.css);
+@import url(components/MoviesCard/__button-delete/moviescard__button-delete.css);
+@import url(components/MoviesCard/__button-like/_active/moviescard__button-like_active.css);
 @import url(components/Header/__menu/header__menu.css);
 @import url(components/Header/__menu-icon/header__menu-icon.css);
 @import url(components/Header/__menu-layout/header__menu-layout.css);

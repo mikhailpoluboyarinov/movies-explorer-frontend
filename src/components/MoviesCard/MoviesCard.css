@@ -4,6 +4,7 @@
     background: #FDFDFD;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
     overflow: hidden;
+    border-radius: 6px;
 }
 
 @media screen and (max-width: 1023px) {

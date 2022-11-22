@@ -36,8 +36,8 @@ export default function App() {
                         <Techs/>
                         <AboutMe/>
                         <Portfolio/>
-                        <Footer/>
                     </main>
+                    <Footer/>
                 </Route>
                 <Route path="/movies">
                     <Header
@@ -50,7 +50,9 @@ export default function App() {
                     <Header
                         loggedIn={!isLoggedIn}
                     />
-                    <Movies/>
+                    <Movies
+                        isSavedMovies
+                    />
                     <Footer/>
                 </Route>
                 <Route path="/sign-up">

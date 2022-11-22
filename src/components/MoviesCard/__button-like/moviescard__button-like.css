@@ -1,0 +1,28 @@
+.moviescard__button-like {
+    width: 30px;
+    height: 30px;
+    margin: 0 17px 31px 0;
+    border-radius: 36px;
+    border: 0;
+    background-color: transparent;
+    background-image: url(../../../images/icon-save.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.moviescard__button-like:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 1023px) {
+    .moviescard__button-like {
+        margin-right: 13px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .moviescard__button-like {
+        margin-right: 10px;
+    }
+}

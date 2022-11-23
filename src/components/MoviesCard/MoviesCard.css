@@ -1,0 +1,22 @@
+.movies__item {
+    max-width: 364px;
+    max-height: 281px;
+    background: #FDFDFD;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+@media screen and (max-width: 1023px) {
+    .movies__item {
+        max-width: 339px;
+        max-height: 262px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .movies__item {
+        max-width: 300px;
+        max-height: 237px;
+    }
+}

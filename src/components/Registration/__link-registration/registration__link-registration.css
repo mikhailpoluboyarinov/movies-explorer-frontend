@@ -1,0 +1,20 @@
+.registration__link-registration {
+    text-decoration: none;
+    margin: 0 0 0 6px;
+    color: #FF6838;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.registration__link-registration:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 767px) {
+    .registration__link-registration {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

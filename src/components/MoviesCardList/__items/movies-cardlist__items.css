@@ -1,0 +1,21 @@
+.movies-cardlist__items {
+    display: grid;
+    gap: 37px 24px;
+    grid-template-columns: repeat(auto-fit,minmax(364px,1fr));
+    justify-items: center;
+    list-style: none;
+    padding: 0;
+}
+
+@media screen and (max-width: 1023px) {
+    .movies-cardlist__items {
+        grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+        gap: 30px 27px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .movies-cardlist__items {
+        gap: 14px;
+    }
+}

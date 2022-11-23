@@ -1,0 +1,10 @@
+.login__wrap {
+    margin: 0 auto;
+    max-width: 396px;
+}
+
+@media screen and (max-width: 767px) {
+    .login__wrap {
+        max-width: 260px;
+    }
+}

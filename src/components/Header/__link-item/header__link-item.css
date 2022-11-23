@@ -1,0 +1,14 @@
+.header__link-item {
+    display: flex;
+    margin-right: 23px;
+}
+
+.header__link-item:nth-child(2) {
+    margin-right: 40px;
+}
+
+@media screen and (max-width: 1023px) {
+    .header__link-item:nth-child(2) {
+        margin-right: 0;
+    }
+}

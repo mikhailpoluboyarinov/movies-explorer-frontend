@@ -1,0 +1,19 @@
+.about-me__info {
+    display: grid;
+    grid-template-columns: 1fr 270px;
+    margin: 66px 0 0;
+}
+
+@media screen and (max-width: 1023px) {
+    .about-me__info {
+        grid-template-columns: 1fr 255px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .about-me__info {
+        grid-template-rows: 352px 1fr;
+        grid-template-columns: 1fr;
+        margin: 61px 0 0;
+    }
+}

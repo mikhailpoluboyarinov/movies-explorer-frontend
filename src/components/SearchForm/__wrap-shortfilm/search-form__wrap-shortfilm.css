@@ -1,0 +1,14 @@
+.search-form__wrap-shortfilm {
+    display: flex;
+    align-items: center;
+    max-width: 287px;
+    height: 34px;
+}
+
+@media screen and (max-width: 767px) {
+    .search-form__wrap-shortfilm {
+        width: 148px;
+        margin: 57px auto;
+    }
+}
+

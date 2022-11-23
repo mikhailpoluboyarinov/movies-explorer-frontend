@@ -1,0 +1,18 @@
+.moviescard__info-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 78px;
+}
+
+@media screen and (max-width: 1023px) {
+    .moviescard__info-wrap {
+        height: 72px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .moviescard__info-wrap {
+        height: 69px;
+    }
+}

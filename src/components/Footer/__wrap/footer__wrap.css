@@ -1,0 +1,12 @@
+.footer__wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+@media screen and (max-width: 767px) {
+    .footer__wrap {
+        flex-direction: column-reverse;
+        padding: 28px 0 10px;
+    }
+}

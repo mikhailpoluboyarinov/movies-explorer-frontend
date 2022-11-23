@@ -1,0 +1,25 @@
+.search-form__border {
+    display:flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-bottom: 69px;
+    height: 72px;
+    padding: 19px 30px 19px 0;
+    background-color: #FDFDFD;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+    border-radius: 9px;
+}
+
+@media screen and (max-width: 1023px) {
+    .search-form__border {
+        padding: 23px 20px 19px 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .search-form__border {
+        flex-direction: column;
+        padding: 19px 19px 19px 0;
+        margin-bottom: 109px;
+    }
+}

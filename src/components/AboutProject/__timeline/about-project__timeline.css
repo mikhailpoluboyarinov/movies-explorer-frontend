@@ -1,0 +1,22 @@
+.about-project__timeline {
+    display: grid;
+    padding-bottom: 153px;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr 4fr;
+    text-align: center;
+    vertical-align: center;
+}
+
+@media screen and (max-width: 1023px) {
+    .about-project__timeline {
+        grid-template-columns: 1fr 3.77fr;
+        padding-bottom: 91px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .about-project__timeline {
+        padding-bottom: 70px;
+        grid-template-columns: 1fr 1.84fr;
+    }
+}

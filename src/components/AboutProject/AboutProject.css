@@ -1,0 +1,19 @@
+.about-project {
+    max-width: 1280px;
+    height: 608px;
+    margin: 0 auto;
+    padding: 110px 70px 110px 70px;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 1023px) {
+    .about-project {
+        padding: 90px 50px 90px 50px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .about-project {
+        padding: 70px 18px 70px 18px;
+    }
+}

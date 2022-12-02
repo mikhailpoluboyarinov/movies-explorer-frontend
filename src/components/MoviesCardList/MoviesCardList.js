@@ -7,39 +7,7 @@ export default function MoviesCardList ( {isSavedMoviesList} ) {
                 <MoviesCard
                     withDeleteBtn={isSavedMoviesList}
                 />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
-                <MoviesCard
-                    withDeleteBtn={isSavedMoviesList}
-                />
+
             </ul>
         </section>
     );

@@ -8,3 +8,7 @@
 ### Ссылка на проект
 
 `https://mpolu.nomoredomains.club`
+
+### Ссылка на пулреквест
+
+https://github.com/mikhailpoluboyarinov/movies-explorer-frontend/pull/2

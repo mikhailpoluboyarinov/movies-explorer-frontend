@@ -11,4 +11,4 @@
 
 ### Ссылка на пулреквест
 
-https://github.com/mikhailpoluboyarinov/movies-explorer-frontend/pull/2
+`https://github.com/mikhailpoluboyarinov/movies-explorer-frontend/pull/2`

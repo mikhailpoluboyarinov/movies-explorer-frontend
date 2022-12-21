@@ -3,6 +3,8 @@ export const APP_CONSTANTS = {
     singUp: "/sign-up",
     movies: "/movies",
     profile: "/profile",
+    serverPath: "https://api.nomoreparties.co/",
+    main: "/",
 }
 
 

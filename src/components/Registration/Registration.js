@@ -1,31 +1,14 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
 import logoDiploma from "../../images/logo-diploma.svg";
-import { registerUser } from "../../utils/MainApi";
-import { APP_CONSTANTS } from "../../utils/Constants";
 
-export default function Registration() {
-
-    const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm({ mode: 'onChange' } );
-
-    const history = useHistory();
-
-    function handleRegister(data) {
-        registerUser(data)
-            .then((res) => {
-                history.push(APP_CONSTANTS.signIn)
-            })
-            .catch((err) => {
-                console.log(err)
-                /* Сделать обработку ошибки пользователя*/
-            })
-    }
+export default function Registration({ handleRegister }) {
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' } );
 
     const handleSubmitForm = (data) => {
         handleRegister(data);
-        reset();
     }
 
     return(
@@ -90,5 +73,5 @@ export default function Registration() {
                 </form>
             </div>
         </main>
-    )
+    );
 }

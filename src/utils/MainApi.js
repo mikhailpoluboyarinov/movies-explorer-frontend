@@ -1,5 +1,4 @@
 const baseUrl = 'https://mpolu.nomoredomains.sbs/';
-const movieImageUrl = 'https://api.nomoreparties.co';
 
 function setHeaders() {
     const token = localStorage.getItem('jwt');
@@ -14,7 +13,9 @@ function responseCheck(res) {
     if (res.ok) {
         return res.json()
     }
-    return Promise.reject(res);
+    return res.json().then(data => {
+        throw new Error(data.message);
+    })
 }
 
 export function loginUser(data) {

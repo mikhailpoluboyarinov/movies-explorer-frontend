@@ -1,16 +1,33 @@
-export default function SearchForm () {
+import { useForm } from "react-hook-form";
+
+export default function SearchForm ( {onSearchSubmit, checkboxFieldName} ) {
+    const { register, handleSubmit, setValue } = useForm();
+
     return (
         <section className='search-form__container'>
-            <form className="search-form__border">
+            <form className="search-form__border" onSubmit={handleSubmit(onSearchSubmit)}>
                 <div className="search-form__wrap-film">
-                    <input className="search-form__input" type="text" placeholder="Укажите фильм" required/>
+                    <input className="search-form__input"
+                           {...register("text")}
+                           type="text"
+                           placeholder="Укажите фильм"
+                    />
                     <button className="search-form__button" type="submit"></button>
                 </div>
                 <div className="search-form__wrap-shortfilm">
-                    <lable className="search-form__checkbox-wrap">
-                        <input className="search-form__checkbox" type="checkbox"/>
-                    </lable>
-                    <p className="search-form__text">Короткометражки</p>
+                    <div className="search-form__checkbox-wrap">
+                        <input className="search-form__checkbox"
+                               {...register(checkboxFieldName)}
+                               type="checkbox"
+                               checked={Boolean(localStorage.getItem(checkboxFieldName))}
+                               onChange={(e) => {
+                                   setValue(checkboxFieldName, e.target.checked);
+                                   handleSubmit(onSearchSubmit)();
+                                   localStorage.setItem(checkboxFieldName, e.target.checked ? 'checked' : '');
+                               }}
+                        />
+                    </div>
+                    <label className="search-form__text">Короткометражки</label>
                 </div>
             </form>
         </section>

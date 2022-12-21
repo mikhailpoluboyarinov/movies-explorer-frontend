@@ -1,21 +1,8 @@
 import React from 'react';
-import {updateUser} from "../../utils/MainApi";
 import { useForm } from "react-hook-form";
 
-export default function Profile( {currentUser, setCurrentUser, handleLogOut} ) {
-
+export default function Profile( {currentUser, handleLogOut, editProfile } ) {
     const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm({ mode: 'onChange' } );
-
-    function editProfile(data) {
-        updateUser(data)
-            .then((res) => {
-                setCurrentUser(res);
-            })
-            .catch(err => {
-                console.log(err)
-                /* Сделать обработку ошибки пользователя*/
-            })
-    }
 
     const handleSubmitForm = (data) => {
         editProfile(data);
@@ -68,5 +55,5 @@ export default function Profile( {currentUser, setCurrentUser, handleLogOut} ) {
                 <button className="profile__button-exit" type="button" onClick={handleLogOut}>Выйти из аккаунта</button>
             </form>
         </main>
-    )
+    );
 }

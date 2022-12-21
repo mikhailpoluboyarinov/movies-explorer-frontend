@@ -1,7 +1,6 @@
 import foto_mpolu from "../../images/foto_mpolu.jpg";
 
 export default function AboutMe() {
-
     return (
         <section className="about-me">
             <h2 className="about-me__title">Студент</h2>

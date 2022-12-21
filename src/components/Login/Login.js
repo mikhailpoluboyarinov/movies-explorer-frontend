@@ -1,36 +1,15 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { loginUser } from "../../utils/MainApi";
+import { Link } from 'react-router-dom';
+
 import { useForm } from "react-hook-form";
 
 import logoDiploma from "../../images/logo-diploma.svg";
-import { APP_CONSTANTS } from "../../utils/Constants";
 
-export default function Login({ setCurrentUser }) {
-
-    const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm({ mode: 'onChange' } );
-
-    const history = useHistory();
-
-    function handleLogin(data) {
-       loginUser(data)
-            .then((res) => {
-                localStorage.setItem('jwt', res.token);
-                localStorage.setItem('userId', res.user._id);
-                console.log(res);
-                setCurrentUser(res.user);
-                history.push(APP_CONSTANTS.movies);
-            })
-            .catch(err => {
-                console.log(err)
-                /* Сделать обработку ошибки пользователя*/
-            })
-    }
-
+export default function Login({ handleLogin }) {
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' } );
 
     const handleSubmitForm = (data) => {
         handleLogin(data);
-        reset();
     }
 
     return(
@@ -76,5 +55,5 @@ export default function Login({ setCurrentUser }) {
                 </form>
             </div>
         </main>
-    )
+    );
 }

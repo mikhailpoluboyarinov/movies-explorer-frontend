@@ -1,16 +1,23 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Preloader from "../Preloader/Preloader";
 
-export default function Movies ( {isSavedMovies} ) {
+export default function Movies ( { moviesList, handleSearchMovies, handleMovieAction, isLoading } ) {
+    const hasSearchText = Boolean(localStorage.getItem('searchText'));
+    const content = isLoading ? <Preloader /> : (
+        <MoviesCardList
+            moviesList={moviesList}
+            handleMovieAction={handleMovieAction}
+        />
+    );
+
     return (
         <main className='movies'>
-            <SearchForm/>
-            <MoviesCardList
-                isSavedMoviesList={isSavedMovies}
+            <SearchForm
+                onSearchSubmit={handleSearchMovies}
+                checkboxFieldName="isShortMovie"
             />
-            <section className='movies__more'>
-                <button className='movies__button-more'>Ещё</button>
-            </section>
+            {hasSearchText ? content : null}
         </main>
     );
 }

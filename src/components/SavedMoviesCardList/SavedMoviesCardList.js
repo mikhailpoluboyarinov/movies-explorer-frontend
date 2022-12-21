@@ -1,14 +1,12 @@
-import MoviesCard from '../MoviesCard/MoviesCard';
-import { APP_CONSTANTS } from "../../utils/Constants";
+import SavedMoviesCard from '../SavedMoviesCard/SavedMoviesCard';
 import convertDuration from  "../../utils/ConvertFunctions";
 import useScreenDimensions from "../../hooks/screenSizeHook"
 import getInitialCardsNumber from "../../utils/getInitialCardsNumber";
 import getAdditionalCardsNumber from "../../utils/getAdditionalCardsNumber";
 import {useState} from "react";
 
-export default function MoviesCardList ( { moviesList, handleMovieAction } ) {
+export default function SavedMoviesCardList ( { moviesList, handleMovieAction } ) {
     const [counter, setCounter] = useState(0);
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
     const screenDimensions = useScreenDimensions();
     const initialCardsNumber = getInitialCardsNumber(screenDimensions.width);
     const additionalCardsNumber = getAdditionalCardsNumber(screenDimensions.width);
@@ -27,17 +25,14 @@ export default function MoviesCardList ( { moviesList, handleMovieAction } ) {
             <section className='movies-cardlist__container'>
                 <ul className="movies-cardlist__items">
                     {moviesToRender.map(movie =>
-                        <MoviesCard
-                            id={movie.id}
-                            key={movie.id}
+                        <SavedMoviesCard
+                            id={movie.movieId}
+                            key={movie.movieId}
                             title={movie.nameRU}
+                            image={movie.image}
                             movieLink={movie.trailerLink}
-                            onButtonClick={handleMovieAction}
-                            isSaved={savedMovies.find((item) => {
-                                return item.movieId === movie.id
-                            })}
                             duration={convertDuration(movie.duration)}
-                            image={APP_CONSTANTS.serverPath + movie.image.url}
+                            onButtonClick={handleMovieAction}
                         />
                     )}
                 </ul>

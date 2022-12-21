@@ -1,0 +1,26 @@
+.notification {
+    width: 270px;
+    height: 100px;
+    position: fixed;
+    right: 0;
+    left: 10%;
+    bottom: 0;
+    top: 85%;
+    transition: top .3s;
+    z-index: -1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.notification_success {
+    background-color: rgb(3, 136, 3);
+}
+
+.notification_error {
+    background-color: rgb(238, 10, 10);
+}
+
+.notification_active {
+    z-index: 5;
+}

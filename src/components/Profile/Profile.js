@@ -2,7 +2,13 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 
 export default function Profile( {currentUser, handleLogOut, editProfile } ) {
-    const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm({ mode: 'onChange' } );
+    const { register, handleSubmit, formState: { errors, isValid, isDirty }, reset } = useForm({
+        mode: 'onChange',
+        defaultValues: {
+            name: currentUser.name,
+            email: currentUser.email
+        }
+    });
 
     const handleSubmitForm = (data) => {
         editProfile(data);
@@ -40,7 +46,7 @@ export default function Profile( {currentUser, handleLogOut, editProfile } ) {
                            {...register("email", {
                                required: "Поле не должно быть пустым",
                                pattern: {
-                                   value: /^\S+@\S+$/i,
+                                   value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                                    message: "Введите email"
                                }
                            })}
@@ -51,7 +57,7 @@ export default function Profile( {currentUser, handleLogOut, editProfile } ) {
                 <span className="registration__error">
                         {errors?.email && <p>{errors?.email?.message || "Ошибка валидации!"}</p>}
                 </span>
-                <button className="profile__button" type="submit" disabled={!isValid}>Редактировать</button>
+                <button className="profile__button" type="submit" disabled={!isValid || !isDirty}>Редактировать</button>
                 <button className="profile__button-exit" type="button" onClick={handleLogOut}>Выйти из аккаунта</button>
             </form>
         </main>

@@ -43,7 +43,7 @@ export default function Registration({ handleRegister }) {
                            {...register("email", {
                                required: "Поле не должно быть пустым",
                                pattern: {
-                                   value: /^\S+@\S+$/i,
+                                   value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                                    message: "Введите email"
                                }
                            })}

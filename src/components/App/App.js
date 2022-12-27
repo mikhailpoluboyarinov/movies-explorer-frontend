@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, memo} from "react";
 import {Route, Switch, useHistory, Redirect, useLocation } from "react-router-dom";
 import Header from '../Header/Header';
 import Intro from '../Intro/Intro';
@@ -118,7 +118,7 @@ export default function App() {
     function handleRegister(data) {
         registerUser(data)
             .then(() => {
-                history.push(APP_CONSTANTS.signIn);
+                handleLogin({ email:data.email, password: data.password})
             })
             .catch((err) => {
                 showErrorPopup(err.message);
@@ -218,6 +218,21 @@ export default function App() {
         }
     }
 
+    const MoviesComponent = memo(() => (
+        <>
+            <Header
+                loggedIn={isLoggedIn}
+            />
+            <Movies
+                isLoading={isLoading}
+                moviesList={moviesList}
+                handleSearchMovies={handleSearchMovies}
+                handleMovieAction={handleMovieAction}
+            />
+            <Footer/>
+        </>
+    ))
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page__content">
@@ -238,20 +253,7 @@ export default function App() {
                     <ProtectedRoute
                         path="/movies"
                         loggedIn={isLoggedIn}
-                        component={() => (
-                            <>
-                                <Header
-                                    loggedIn={isLoggedIn}
-                                />
-                                <Movies
-                                    isLoading={isLoading}
-                                    moviesList={moviesList}
-                                    handleSearchMovies={handleSearchMovies}
-                                    handleMovieAction={handleMovieAction}
-                                />
-                                <Footer/>
-                            </>
-                        )}
+                        component={MoviesComponent}
                     />
                     <ProtectedRoute
                         path="/saved-movies"

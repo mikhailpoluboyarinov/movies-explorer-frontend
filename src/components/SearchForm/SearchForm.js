@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 
-export default function SearchForm ( {onSearchSubmit, checkboxFieldName} ) {
+export default function SearchForm ( {onSearchSubmit, checkboxFieldName, searchText} ) {
     const { register, handleSubmit, setValue } = useForm();
+
 
     return (
         <section className='search-form__container'>
@@ -11,6 +12,7 @@ export default function SearchForm ( {onSearchSubmit, checkboxFieldName} ) {
                            {...register("text")}
                            type="text"
                            placeholder="Укажите фильм"
+                           defaultValue={searchText}
                     />
                     <button className="search-form__button" type="submit"></button>
                 </div>

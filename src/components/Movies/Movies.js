@@ -3,7 +3,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from "../Preloader/Preloader";
 
 export default function Movies ( { moviesList, handleSearchMovies, handleMovieAction, isLoading } ) {
-    const hasSearchText = Boolean(localStorage.getItem('searchText'));
+    const searchText = localStorage.getItem('searchText');
+    const hasSearchText = Boolean(searchText);
+
     const content = isLoading ? <Preloader /> : (
         <MoviesCardList
             moviesList={moviesList}
@@ -16,6 +18,7 @@ export default function Movies ( { moviesList, handleSearchMovies, handleMovieAc
             <SearchForm
                 onSearchSubmit={handleSearchMovies}
                 checkboxFieldName="isShortMovie"
+                searchText={searchText}
             />
             {hasSearchText ? content : null}
         </main>

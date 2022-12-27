@@ -1,7 +1,8 @@
 import React from 'react';
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-export default function Profile( {currentUser, handleLogOut, editProfile } ) {
+export default function Profile( {currentUser, handleLogOut, editProfile} ) {
     const { register, handleSubmit, formState: { errors, isValid, isDirty }, reset } = useForm({
         mode: 'onChange',
         defaultValues: {
@@ -9,6 +10,13 @@ export default function Profile( {currentUser, handleLogOut, editProfile } ) {
             email: currentUser.email
         }
     });
+
+    useEffect(() => {
+        reset({
+                name: currentUser.name,
+                email: currentUser.email
+            });
+    }, [currentUser])
 
     const handleSubmitForm = (data) => {
         editProfile(data);

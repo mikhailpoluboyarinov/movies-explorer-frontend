@@ -1,4 +1,6 @@
-const baseUrl = 'https://mpolu.nomoredomains.sbs/';
+import {URLS} from "./Constants";
+
+const baseUrl = URLS.baseUrl;
 
 function setHeaders() {
     const token = localStorage.getItem('jwt');
@@ -14,7 +16,9 @@ function responseCheck(res) {
         return res.json()
     }
     return res.json().then(data => {
-        throw new Error(data.message);
+        const error = new Error(data.message)
+        error.code = res.status
+        throw error;
     })
 }
 

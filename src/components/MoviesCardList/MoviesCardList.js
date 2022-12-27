@@ -6,8 +6,6 @@ import getInitialCardsNumber from "../../utils/getInitialCardsNumber";
 import getAdditionalCardsNumber from "../../utils/getAdditionalCardsNumber";
 import {useState} from "react";
 
-/*let counter = 0;*/
-
 export default function MoviesCardList ( { moviesList, handleMovieAction } ) {
     const [counter, setCounter] = useState(0);
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
@@ -17,7 +15,6 @@ export default function MoviesCardList ( { moviesList, handleMovieAction } ) {
     const moviesToRender = moviesList.slice(0, initialCardsNumber + counter);
 
     function addCounter() {
-        /*counter = counter + additionalCardsNumber;*/
         setCounter(counter + additionalCardsNumber);
     }
 

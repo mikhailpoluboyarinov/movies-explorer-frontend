@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import logoDiploma from "../../images/logo-diploma.svg";
 
-export default function Login({ handleLogin }) {
+export default function Login({ handleLogin, isLoading }) {
     const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: 'onChange' } );
 
     const handleSubmitForm = (data) => {
@@ -47,7 +47,7 @@ export default function Login({ handleLogin }) {
                     <span className="login__error">
                         {errors?.password && <p>{errors?.password?.message || "Ошибка валидации!"}</p>}
                     </span>
-                    <button className="login__button" type="submit" disabled={!isValid}>Войти</button>
+                    <button className="login__button" type="submit" disabled={!isValid || isLoading}>Войти</button>
                     <p className="login__caption">
                         Ещё не зарегистрированы?
                         <Link to="/sign-up" className="login__link-registration">Регистрация</Link>

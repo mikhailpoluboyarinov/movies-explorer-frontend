@@ -1,11 +1,10 @@
 .notification {
-    width: 270px;
-    height: 100px;
+    padding: 12px;
+    max-width: 300px;
     position: fixed;
-    right: 0;
-    left: 10%;
-    bottom: 0;
-    top: 85%;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 5%;
     transition: top .3s;
     z-index: -1;
     text-align: center;

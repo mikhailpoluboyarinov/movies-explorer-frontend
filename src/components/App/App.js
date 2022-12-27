@@ -1,4 +1,4 @@
-import {useEffect, useState, memo} from "react";
+import {useEffect, useState} from "react";
 import {Route, Switch, useHistory, Redirect, useLocation } from "react-router-dom";
 import Header from '../Header/Header';
 import Intro from '../Intro/Intro';
@@ -23,13 +23,15 @@ import { APP_CONSTANTS } from "../../utils/Constants";
 import '../../index.css';
 import SavedMovies from "../SavedMovies/SavedMovies";
 
-const PUBLIC_PAGE_URLS = [ APP_CONSTANTS.signIn, APP_CONSTANTS.singUp, APP_CONSTANTS.main ];
+const PRIVATE_PAGE_URLS = [ APP_CONSTANTS.movies, APP_CONSTANTS.savedMovies, APP_CONSTANTS.profile ];
+const REGISTRATION_LOGIN_URLS = [ APP_CONSTANTS.signIn, APP_CONSTANTS.singUp ];
 
 export default function App() {
     const [isLoggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('jwt')));
     const [currentUser, setCurrentUser] = useState('');
     const [moviesList, setMoviesList] = useState(JSON.parse(localStorage.getItem('filteredMovies')) || []);
     const [savedMoviesList, setSavedMoviesList] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
+    const [savedFilteredMoviesList, setSavedFilteredMoviesList] = useState([]);
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [popupText, setPopupText] = useState('');
     const [popupType, setPopupType] = useState('success');
@@ -40,8 +42,10 @@ export default function App() {
     const isMoviesPage = location.pathname === APP_CONSTANTS.movies;
 
     useEffect(() => {
-        if (!isLoggedIn && !PUBLIC_PAGE_URLS.includes(location.pathname)) {
-            history.push("/sign-in");
+        if ((!isLoggedIn && PRIVATE_PAGE_URLS.includes(location.pathname)) ||
+            (isLoggedIn && REGISTRATION_LOGIN_URLS.includes(location.pathname))
+        ) {
+            history.push("/");
         }
     })
 
@@ -58,9 +62,8 @@ export default function App() {
             getUserMovies().then(res => {
                 localStorage.setItem('savedMovies', JSON.stringify(res));
                 setSavedMoviesList(res);
-            }).catch(() => {
-                showErrorPopup('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. ' +
-                    'Подождите немного и попробуйте ещё раз');
+            }).catch((err) => {
+                handleUserMovieError(err)
             })
         }
     }, [isLoggedIn])
@@ -72,7 +75,24 @@ export default function App() {
         setTimeout(() => {
             setIsPopupOpen(false)
             setPopupText('');
-        }, 2000)
+        }, APP_CONSTANTS.showPopupDuration)
+    }
+
+    function handleError(error) {
+        if (error.code === APP_CONSTANTS.errorCode401) {
+            handleLogOut();
+        }
+
+        showErrorPopup(error.message)
+    }
+
+    function handleUserMovieError(error) {
+        if (error.code === APP_CONSTANTS.errorCode401) {
+            handleLogOut();
+        }
+
+        showErrorPopup('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. ' +
+            'Подождите немного и попробуйте ещё раз')
     }
 
     function showErrorPopup(text) {
@@ -84,8 +104,10 @@ export default function App() {
     }
 
     function handleLogin(data) {
+        setIsLoading(true);
         loginUser(data)
             .then((res) => {
+                setIsLoading(false);
                 localStorage.setItem('jwt', res.token);
                 localStorage.setItem('userId', res.user._id);
                 setCurrentUser(res.user);
@@ -93,7 +115,7 @@ export default function App() {
                 history.push(APP_CONSTANTS.movies);
             })
             .catch(err => {
-                showErrorPopup(err.message);
+                handleError(err);
             })
     }
 
@@ -105,23 +127,24 @@ export default function App() {
         localStorage.removeItem('movies');
         localStorage.removeItem('savedMovies');
         localStorage.removeItem('filteredMovies');
-        localStorage.removeItem('filteredSavedMovies');
         localStorage.removeItem('searchText');
-        localStorage.removeItem('searchSavedMoviesText');
         localStorage.removeItem('isShortMovie');
         localStorage.removeItem('isSavedShortMovie');
+        localStorage.removeItem('filteredSavedMovies');
         setMoviesList([]);
         setSavedMoviesList([]);
         history.push('/');
     }
 
     function handleRegister(data) {
+        setIsLoading(true)
         registerUser(data)
             .then(() => {
+                setIsLoading(false)
                 handleLogin({ email:data.email, password: data.password})
             })
             .catch((err) => {
-                showErrorPopup(err.message);
+                handleError(err);
             })
     }
 
@@ -132,47 +155,55 @@ export default function App() {
                 showSuccessPopup('Данные пользователя успешно изменены');
             })
             .catch(err => {
-                showErrorPopup(err.message);
+                handleError(err);
             })
     }
 
-    function handleSearchMovies(data) {
-        setIsLoading(true)
-        localStorage.setItem('searchText', data.text);
-        getMovies().then(res => {
-            setIsLoading(false);
-            localStorage.setItem('movies', JSON.stringify(res));
-            const movies = JSON.parse(localStorage.getItem('movies'));
-            const filteredMovies = movies.filter((item) => {
-                const isMatchedByName = item.nameRU.toLowerCase().includes(data.text.toLowerCase());
-                if (data.isShortMovie) {
-                    return isMatchedByName && item.duration <= 40;
-                }
-                return isMatchedByName;
-            });
+    function filterMovies(movies, data) {
+        const filteredMovies = movies.filter((item) => {
+            const isMatchedByName = item.nameRU.toLowerCase().includes(data.text.toLowerCase());
+            if (data.isShortMovie) {
+                return isMatchedByName && item.duration <= APP_CONSTANTS.filmDuration;
+            }
+            return isMatchedByName;
+        });
 
-            localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-            setMoviesList(filteredMovies);
-        }).catch(() => {
-            showErrorPopup('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. ' +
-                'Подождите немного и попробуйте ещё раз');
-        })
+        localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+        setMoviesList(filteredMovies);
+    }
+
+    function handleSearchMovies(data) {
+        localStorage.setItem('searchText', data.text);
+
+        const movies = JSON.parse(localStorage.getItem('movies')) || [];
+
+        if (!movies.length) {
+            setIsLoading(true);
+            getMovies().then(res => {
+                setIsLoading(false);
+                localStorage.setItem('movies', JSON.stringify(res));
+
+                filterMovies(res, data);
+            }).catch((err) => {
+                handleUserMovieError(err);
+            })
+        } else {
+            filterMovies(movies, data);
+        }
     }
 
     function handleSearchSavedMovies(data) {
-        localStorage.setItem('searchSavedMoviesText', data.text);
 
         const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
         const filteredSavedMovies = savedMovies.filter((item) => {
             const isMatchedByName = item.nameRU.toLowerCase().includes(data.text.toLowerCase());
             if (data.isSavedShortMovie) {
-                return isMatchedByName && item.duration <= 40;
+                return isMatchedByName && item.duration <= APP_CONSTANTS.filmDuration;
             }
             return isMatchedByName;
         });
 
-        localStorage.setItem('filteredSavedMovies', JSON.stringify(filteredSavedMovies));
-        setSavedMoviesList(filteredSavedMovies);
+        setSavedFilteredMoviesList(filteredSavedMovies);
     }
 
     function handleMovieAction(movieId, isSaveAction) {
@@ -198,7 +229,7 @@ export default function App() {
                 localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
                 setSavedMoviesList(savedMovies);
             }).catch((err) => {
-                showErrorPopup(err.message);
+                handleError(err);
             })
         } else {
             const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
@@ -213,34 +244,17 @@ export default function App() {
                 localStorage.setItem('savedMovies', JSON.stringify(filteredSavedMovies));
                 setSavedMoviesList(filteredSavedMovies);
             }).catch((err) => {
-                showErrorPopup(err.message);
+                handleError(err);
             })
         }
     }
-
-    const MoviesComponent = memo(() => (
-        <>
-            <Header
-                loggedIn={isLoggedIn}
-            />
-            <Movies
-                isLoading={isLoading}
-                moviesList={moviesList}
-                handleSearchMovies={handleSearchMovies}
-                handleMovieAction={handleMovieAction}
-            />
-            <Footer/>
-        </>
-    ))
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page__content">
                 <Switch>
                     <Route exact path="/">
-                        <Header
-                            loggedIn={isLoggedIn}
-                        />
+                        <Header loggedIn={isLoggedIn}/>
                         <main>
                             <Intro/>
                             <AboutProject/>
@@ -250,55 +264,52 @@ export default function App() {
                         </main>
                         <Footer/>
                     </Route>
-                    <ProtectedRoute
-                        path="/movies"
-                        loggedIn={isLoggedIn}
-                        component={MoviesComponent}
-                    />
-                    <ProtectedRoute
-                        path="/saved-movies"
-                        loggedIn={isLoggedIn}
-                        component={() => (
-                            <>
-                                <Header
-                                    loggedIn={isLoggedIn}
-                                />
-                                <SavedMovies
-                                    moviesList={savedMoviesList}
-                                    handleSearchMovies={handleSearchSavedMovies}
-                                    handleMovieAction={handleMovieAction}
-                                />
-                                <Footer/>
-                            </>
-                        )}
-                    />
+                    <ProtectedRoute path="/movies" loggedIn={isLoggedIn}>
+                        <Header
+                            loggedIn={isLoggedIn}
+                        />
+                        <Movies
+                            isLoading={isLoading}
+                            moviesList={moviesList}
+                            handleSearchMovies={handleSearchMovies}
+                            handleMovieAction={handleMovieAction}
+                        />
+                        <Footer/>
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/saved-movies" loggedIn={isLoggedIn}>
+                        <Header
+                            loggedIn={isLoggedIn}
+                        />
+                        <SavedMovies
+                            moviesList={savedFilteredMoviesList.length > 0 ? savedFilteredMoviesList : savedMoviesList}
+                            setSavedFilteredMoviesList={setSavedFilteredMoviesList}
+                            handleSearchMovies={handleSearchSavedMovies}
+                            handleMovieAction={handleMovieAction}
+                        />
+                        <Footer/>
+                    </ProtectedRoute>
                     <Route path="/sign-up">
                         <Registration
+                            isLoading={isLoading}
                             handleRegister={handleRegister}
                         />
                     </Route>
                     <Route path="/sign-in">
                         <Login
+                            isLoading={isLoading}
                             handleLogin={handleLogin}
                         />
                     </Route>
-                    <ProtectedRoute
-                        path="/profile"
-                        loggedIn={isLoggedIn}
-                        component={() => (
-                            <>
-                                <Header
-                                    loggedIn={isLoggedIn}
-                                />
-                                <Profile
-                                    currentUser={currentUser}
-                                    setCurrentUser={setCurrentUser}
-                                    editProfile={editProfile}
-                                    handleLogOut={handleLogOut}
-                                />
-                            </>
-                        )}
-                    />
+                    <ProtectedRoute path="/profile" loggedIn={isLoggedIn}>
+                        <Header
+                            loggedIn={isLoggedIn}
+                        />
+                        <Profile
+                            currentUser={currentUser}
+                            editProfile={editProfile}
+                            handleLogOut={handleLogOut}
+                        />
+                    </ProtectedRoute>
                     <Route path="/not-found">
                         <ErrorPage/>
                     </Route>

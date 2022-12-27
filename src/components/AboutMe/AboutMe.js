@@ -9,8 +9,8 @@ export default function AboutMe() {
                     <h3 className="about-me__name">Михаил</h3>
                     <p className="about-me__profession">Фронтенд-зазработчик, 33 года</p>
                     <p className="about-me__about">Я родился и живу в СанктПетербурге, закончил СПБГУАП.
-                        Я увлекаюсь бегом и картингом. Начал пробовать кодить в пандемию, решил пройти курсы на ЯПрактикуме
-                        по Веб разработке.
+                        Я увлекался бегом и картингом, но понял, что от судьбы не убежишь и начал стоять на гвоздях и не чувствовать боли.
+                        Теперь я машина, мне все по плечу, тем более код, который я пишу.
                     </p>
                     <a className="about-me__link" href="https://github.com/mikhailpoluboyarinov" target="blank">GitHub</a>
                 </div>

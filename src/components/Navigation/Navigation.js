@@ -7,7 +7,6 @@ export default function Navigation({ loggedIn }) {
 
     const openMenu = () => {
         setMenuLayoutVisible(true);
-        console.log('ok');
     }
 
     const closeMenu = () => {

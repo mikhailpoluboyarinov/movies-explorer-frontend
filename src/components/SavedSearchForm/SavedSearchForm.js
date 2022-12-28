@@ -1,7 +1,13 @@
 import { useForm } from "react-hook-form";
 
-export default function SearchForm ( {onSearchSubmit, checkboxFieldName, searchText} ) {
-    const { register, handleSubmit, setValue } = useForm();
+export default function SavedSearchForm ( {onSearchSubmit, checkboxFieldName} ) {
+    const { register, handleSubmit, setValue, watch } = useForm({
+        defaultValues: {
+            [checkboxFieldName]: false,
+        }
+    });
+
+    const checkboxValue = watch(checkboxFieldName);
 
     return (
         <section className='search-form__container'>
@@ -11,7 +17,6 @@ export default function SearchForm ( {onSearchSubmit, checkboxFieldName, searchT
                            {...register("text")}
                            type="text"
                            placeholder="Укажите фильм"
-                           defaultValue={searchText}
                     />
                     <button className="search-form__button" type="submit"></button>
                 </div>
@@ -20,11 +25,10 @@ export default function SearchForm ( {onSearchSubmit, checkboxFieldName, searchT
                         <input className="search-form__checkbox"
                                {...register(checkboxFieldName)}
                                type="checkbox"
-                               checked={Boolean(localStorage.getItem(checkboxFieldName))}
+                               checked={checkboxValue}
                                onChange={(e) => {
                                    setValue(checkboxFieldName, e.target.checked);
                                    handleSubmit(onSearchSubmit)();
-                                   localStorage.setItem(checkboxFieldName, e.target.checked ? 'checked' : '');
                                }}
                         />
                     </div>

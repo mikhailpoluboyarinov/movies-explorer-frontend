@@ -1,23 +1,26 @@
-import SearchForm from '../SearchForm/SearchForm';
+import SavedSearchForm from '../SavedSearchForm/SavedSearchForm';
 import {useEffect} from "react";
 import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 
-export default function SavedMovies ( { moviesList, handleSearchMovies, handleMovieAction, setSavedFilteredMoviesList } ) {
-    const searchText = localStorage.getItem('searchSavedMoviesText');
-
+export default function SavedMovies({
+    moviesList,
+    handleSearchMovies,
+    handleMovieAction,
+    setSavedFilteredMoviesList,
+    setIsEnabledFilteredSavedMoviesList
+}) {
     useEffect(() => {
         return () => {
-            setSavedFilteredMoviesList([])
+            setSavedFilteredMoviesList([]);
+            setIsEnabledFilteredSavedMoviesList(false);
         }
-    }, [setSavedFilteredMoviesList])
+    }, [setSavedFilteredMoviesList, setIsEnabledFilteredSavedMoviesList])
 
     return (
         <main className='movies'>
-            <SearchForm
-                searchText={searchText}
+            <SavedSearchForm
                 onSearchSubmit={handleSearchMovies}
                 checkboxFieldName="isSavedShortMovie"
-
             />
             <SavedMoviesCardList
                 moviesList={moviesList}

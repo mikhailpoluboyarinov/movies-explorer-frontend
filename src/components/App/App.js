@@ -32,6 +32,7 @@ export default function App() {
     const [moviesList, setMoviesList] = useState(JSON.parse(localStorage.getItem('filteredMovies')) || []);
     const [savedMoviesList, setSavedMoviesList] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
     const [savedFilteredMoviesList, setSavedFilteredMoviesList] = useState([]);
+    const [isEnabledFilteredSavedMoviesList, setIsEnabledFilteredSavedMoviesList] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [popupText, setPopupText] = useState('');
     const [popupType, setPopupType] = useState('success');
@@ -129,8 +130,6 @@ export default function App() {
         localStorage.removeItem('filteredMovies');
         localStorage.removeItem('searchText');
         localStorage.removeItem('isShortMovie');
-        localStorage.removeItem('isSavedShortMovie');
-        localStorage.removeItem('filteredSavedMovies');
         setMoviesList([]);
         setSavedMoviesList([]);
         history.push('/');
@@ -202,7 +201,7 @@ export default function App() {
             }
             return isMatchedByName;
         });
-
+        setIsEnabledFilteredSavedMoviesList(Boolean(data.text) || data.isSavedShortMovie);
         setSavedFilteredMoviesList(filteredSavedMovies);
     }
 
@@ -265,9 +264,7 @@ export default function App() {
                         <Footer/>
                     </Route>
                     <ProtectedRoute path="/movies" loggedIn={isLoggedIn}>
-                        <Header
-                            loggedIn={isLoggedIn}
-                        />
+                        <Header loggedIn={isLoggedIn}/>
                         <Movies
                             isLoading={isLoading}
                             moviesList={moviesList}
@@ -277,12 +274,11 @@ export default function App() {
                         <Footer/>
                     </ProtectedRoute>
                     <ProtectedRoute path="/saved-movies" loggedIn={isLoggedIn}>
-                        <Header
-                            loggedIn={isLoggedIn}
-                        />
+                        <Header loggedIn={isLoggedIn}/>
                         <SavedMovies
-                            moviesList={savedFilteredMoviesList.length > 0 ? savedFilteredMoviesList : savedMoviesList}
+                            moviesList={isEnabledFilteredSavedMoviesList ? savedFilteredMoviesList : savedMoviesList}
                             setSavedFilteredMoviesList={setSavedFilteredMoviesList}
+                            setIsEnabledFilteredSavedMoviesList={setIsEnabledFilteredSavedMoviesList}
                             handleSearchMovies={handleSearchSavedMovies}
                             handleMovieAction={handleMovieAction}
                         />
@@ -301,9 +297,7 @@ export default function App() {
                         />
                     </Route>
                     <ProtectedRoute path="/profile" loggedIn={isLoggedIn}>
-                        <Header
-                            loggedIn={isLoggedIn}
-                        />
+                        <Header loggedIn={isLoggedIn}/>
                         <Profile
                             currentUser={currentUser}
                             editProfile={editProfile}

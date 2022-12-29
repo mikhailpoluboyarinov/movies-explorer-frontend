@@ -108,7 +108,6 @@ export default function App() {
         setIsLoading(true);
         loginUser(data)
             .then((res) => {
-                setIsLoading(false);
                 localStorage.setItem('jwt', res.token);
                 localStorage.setItem('userId', res.user._id);
                 setCurrentUser(res.user);
@@ -117,7 +116,9 @@ export default function App() {
             })
             .catch(err => {
                 handleError(err);
-            })
+            }).finally(() => {
+                setIsLoading(false);
+        })
     }
 
     function handleLogOut() {
@@ -139,12 +140,13 @@ export default function App() {
         setIsLoading(true)
         registerUser(data)
             .then(() => {
-                setIsLoading(false)
                 handleLogin({ email:data.email, password: data.password})
             })
             .catch((err) => {
                 handleError(err);
-            })
+            }).finally(() => {
+            setIsLoading(false);
+        })
     }
 
     function editProfile(data) {
@@ -179,12 +181,13 @@ export default function App() {
         if (!movies.length) {
             setIsLoading(true);
             getMovies().then(res => {
-                setIsLoading(false);
                 localStorage.setItem('movies', JSON.stringify(res));
 
                 filterMovies(res, data);
             }).catch((err) => {
                 handleUserMovieError(err);
+            }).finally(() => {
+                setIsLoading(false);
             })
         } else {
             filterMovies(movies, data);

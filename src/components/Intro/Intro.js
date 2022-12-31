@@ -1,5 +1,4 @@
 export default function Intro() {
-
     return (
         <section className="intro">
             <div className="intro__background">

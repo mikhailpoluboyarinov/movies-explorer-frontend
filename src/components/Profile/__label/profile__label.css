@@ -1,8 +1,9 @@
 .profile__label {
     display: flex;
     justify-content: space-between;
-    gap: 225px;
+    gap: 85px;
     border-bottom: 1px solid #E8E8E8;
+    width: 410px;
 }
 
 .profile__label:last-of-type {
@@ -11,6 +12,7 @@
 
 @media screen and (max-width: 767px) {
     .profile__label {
-        gap: 76px;
+        gap: 0;
+        width: 260px;
     }
 }

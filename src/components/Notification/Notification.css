@@ -1,0 +1,25 @@
+.notification {
+    padding: 12px;
+    max-width: 300px;
+    position: fixed;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 5%;
+    transition: top .3s;
+    z-index: -1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.notification_success {
+    background-color: rgb(3, 136, 3);
+}
+
+.notification_error {
+    background-color: rgb(238, 10, 10);
+}
+
+.notification_active {
+    z-index: 5;
+}

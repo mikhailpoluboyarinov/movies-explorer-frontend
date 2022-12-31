@@ -1,6 +1,5 @@
 .registration__button {
     background-color: #FF6838;
-    cursor: pointer;
     margin-top: 159px;
     border: 0;
     border-radius: 3px;
@@ -12,8 +11,9 @@
     width: 100%;
 }
 
-.registration__button:hover {
+.registration__button:not([disabled]):hover {
     opacity: .6;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

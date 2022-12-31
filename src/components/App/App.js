@@ -80,7 +80,7 @@ export default function App() {
     }
 
     function handleError(error) {
-        if (error.code === APP_CONSTANTS.errorCode401) {
+        if (error.code === APP_CONSTANTS.errorCode401 && !REGISTRATION_LOGIN_URLS.includes(location.pathname)) {
             handleLogOut();
         }
 
@@ -88,7 +88,7 @@ export default function App() {
     }
 
     function handleUserMovieError(error) {
-        if (error.code === APP_CONSTANTS.errorCode401) {
+        if (error.code === APP_CONSTANTS.errorCode401 && !REGISTRATION_LOGIN_URLS.includes(location.pathname)) {
             handleLogOut();
         }
 
